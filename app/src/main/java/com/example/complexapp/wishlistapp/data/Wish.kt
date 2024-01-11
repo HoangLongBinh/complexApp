@@ -1,9 +1,30 @@
 package com.example.complexapp.wishlistapp.data
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+/*
+    Theory of room DB
+    If you want to store a small amount of data that not require structure => can you Shared preference
+    If you want to store data and perform complex query => can use SQLite or Room
+ */
+
+
+//The entity basically a table wish many properties
+
+/*
+    Step to initialize a room DB
+    1. Create an Entity class (sample wish)
+    2. Create a wishDao from Entity class (Data access object)
+ */
+
+
+@Entity(tableName = "wish-table")
 data class Wish(
-    var id: Long = 0L,
-    var tittle: String,
-    var desc: String
+    @PrimaryKey(autoGenerate = true) var id: Long = 0L,  //this id is auto increment and generate automatically
+    @ColumnInfo(name = "wish-title") var tittle: String,
+    @ColumnInfo(name = "wish-desc") var desc: String
 )
 
 

@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.complexapp.R
+import com.example.complexapp.wishlistapp.Screen
 import com.example.complexapp.wishlistapp.data.WishViewModel
 
 //function used to add or edit detail view
@@ -39,7 +40,9 @@ fun AddEditDetailView(
         topBar = { 
             AppBar(tittle = if (id != 0L) stringResource(id = R.string.update_wish)
                 else stringResource(id = R.string.add_wish)
-            )
+            ) {
+                navController.navigateUp()   //navigate to the previous screen
+            }
         }
     ) {
         Column(
@@ -54,7 +57,8 @@ fun AddEditDetailView(
 
             WishTextField(
                 label = "Tittle",
-                value = viewModel.getWishTittleState(),
+                value = viewModel.wishTittleState,
+
                 onChangeValue = { tittle ->
                     viewModel.onWishTitleChange(tittle) //set new data for view-model
                 }
@@ -64,7 +68,7 @@ fun AddEditDetailView(
 
             WishTextField(
                 label = "Description",
-                value = viewModel.getWishDescriptionState(),
+                value = viewModel.wishDescriptionState,
                 onChangeValue = { desc ->
                     viewModel.onWishDescriptionChange(desc) //set new data for view-model
                 }
@@ -74,15 +78,13 @@ fun AddEditDetailView(
 
             Button(
                 onClick = { //wish handle store or modify data in the DB
-                    if (viewModel.getWishTittleState().isNotEmpty()
-                        &&viewModel.getWishDescriptionState().isNotEmpty()  //update if no empty
+                    if (viewModel.wishTittleState.isNotEmpty()
+                        &&viewModel.wishDescriptionState.isNotEmpty()  //update if no empty
                         ) {
                         //TODO to update wish
                     } else {
                         //TODO add wish
                     }
-
-
                 }
             ) {
                 Text(
